@@ -1,7 +1,9 @@
+import React, { useState } from "react";
 import GlobalStyle from "../styles";
 import Head from "next/head";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
+import MovieDetails from "../components/MovieDetails";
 
 const Movies = [
   {
@@ -43,6 +45,12 @@ const Movies = [
 ];
 
 export default function App({ Component, pageProps }) {
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const handleMovieClick = (id) => {
+    const movie = Movies.find((movie) => movie.id === id);
+    setSelectedMovie(movie);
+  };
   return (
     <>
       <GlobalStyle />
@@ -58,8 +66,10 @@ export default function App({ Component, pageProps }) {
           title={movie.title}
           description={movie.description}
           releaseYear={movie.releaseYear}
+          onClick={() => handleMovieClick(movie.id)}
         />
       ))}
+      {selectedMovie && <MovieDetails movie={selectedMovie} />}
     </>
   );
 }

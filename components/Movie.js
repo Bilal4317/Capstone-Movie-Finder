@@ -1,5 +1,5 @@
-import React from "react";
 import styled from "styled-components";
+import React, { useState } from "react";
 
 const MovieWrapper = styled.div`
   background-color: #f9f9f9;
@@ -29,13 +29,34 @@ const Id = styled.p`
 `;
 
 const Movie = ({ title, description, releaseYear, id }) => {
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleMovieClick = () => {
+    setShowDetails(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowDetails(false);
+  };
+
   return (
-    <MovieWrapper>
-      <MovieTitle>{title}</MovieTitle>
-      <MovieDescription>{description}</MovieDescription>
-      <MovieReleaseYear>Release Year: {releaseYear}</MovieReleaseYear>
-      <Id>Movie ID: {id}</Id>
-    </MovieWrapper>
+    <>
+      <MovieWrapper onClick={handleMovieClick}>
+        <MovieTitle>{title}</MovieTitle>
+        <MovieDescription>{description}</MovieDescription>
+        <MovieReleaseYear>Release Year: {releaseYear}</MovieReleaseYear>
+        <Id>Movie ID: {id}</Id>
+      </MovieWrapper>
+      {showDetails && (
+        <div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <p>Release Year: {releaseYear}</p>
+          <p>Movie ID : {id} </p>
+          <button onClick={handleCloseModal}>Close</button>
+        </div>
+      )}
+    </>
   );
 };
 
