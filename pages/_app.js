@@ -21,7 +21,7 @@ const Movies = [
   {
     id: 3,
     title: "Spiderman 3",
-    description: "This is the description of spiderman 3.",
+    description: "This is the description of spiderman 3 .",
     releaseYear: 2011,
   },
   {
