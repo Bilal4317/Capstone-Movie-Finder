@@ -3,7 +3,7 @@ import GlobalStyle from "../styles";
 import Head from "next/head";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
-import MovieDetails from "../components/MovieDetails";
+import MovieDetails from "../components/Moviedetails.js";
 
 const Movies = [
   {
