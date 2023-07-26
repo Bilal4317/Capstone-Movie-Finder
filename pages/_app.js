@@ -4,6 +4,7 @@ import Head from "next/head";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
 import MovieDetails from "../components/Moviedetails.js";
+import SearchInput from "../components/SearchInput.js";
 
 const Movies = [
   {
@@ -45,12 +46,25 @@ const Movies = [
 ];
 
 export default function App({ Component, pageProps }) {
+  const [filteredMovies, setFilteredMovies] = useState(Movies);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const handleMovieClick = (id) => {
-    const movie = Movies.find((movie) => movie.id === id);
-    setSelectedMovie(movie);
+  const handleSearch = (query) => {
+    const filtered = Movies.filter((movie) =>
+      movie.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredMovies(filtered);
   };
+
+  const handleMovieClick = (movieId) => {
+    const selected = Movies.find((movie) => movie.id === movieId);
+    setSelectedMovie(selected);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedMovie(null);
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -58,18 +72,26 @@ export default function App({ Component, pageProps }) {
         <title>Movie Finder</title>
       </Head>
       <Heading />
+      <SearchInput onChange={handleSearch} />
 
-      {Movies.map((movie) => (
-        <Movie
-          key={movie.id}
-          id={movie.id}
-          title={movie.title}
-          description={movie.description}
-          releaseYear={movie.releaseYear}
-          onClick={() => handleMovieClick(movie.id)}
-        />
-      ))}
-      {selectedMovie && <MovieDetails movie={selectedMovie} />}
+      {filteredMovies.length > 0 ? (
+        filteredMovies.map((movie) => (
+          <Movie
+            key={movie.id}
+            id={movie.id}
+            title={movie.title}
+            description={movie.description}
+            releaseYear={movie.releaseYear}
+            onClick={() => handleMovieClick(movie.id)}
+          />
+        ))
+      ) : (
+        <p>No matching movies found.</p>
+      )}
+
+      {selectedMovie && (
+        <MovieDetails movie={selectedMovie} onClose={handleCloseModal} />
+      )}
     </>
   );
 }
