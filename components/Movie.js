@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const MovieWrapper = styled.div`
   background-color: #f9f9f9;

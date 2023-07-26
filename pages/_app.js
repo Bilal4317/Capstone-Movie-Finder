@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import GlobalStyle from "../styles";
 import Head from "next/head";
 import Movie from "../components/Movie";
