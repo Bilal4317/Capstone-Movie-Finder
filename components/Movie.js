@@ -28,8 +28,21 @@ const Id = styled.p`
   color: #777;
 `;
 
-const Movie = ({ title, description, releaseYear, id }) => {
+const HeartIcon = styled.span`
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 20px;
+  color: ${({ isFavorite }) => (isFavorite ? "red" : "gray")};
+`;
+
+const Movie = ({ title, description, releaseYear, id, onAddToFavorites }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleAddToFavorites = () => {
+    setIsFavorite(!isFavorite);
+    onAddToFavorites(id);
+  };
 
   const handleMovieClick = () => {
     setShowDetails(true);
@@ -53,6 +66,9 @@ const Movie = ({ title, description, releaseYear, id }) => {
           <p>{description}</p>
           <p>Release Year: {releaseYear}</p>
           <p>Movie ID : {id} </p>
+          <HeartIcon isFavorite={isFavorite} onClick={handleAddToFavorites}>
+            &#10084;
+          </HeartIcon>
           <button onClick={handleCloseModal}>Close</button>
         </div>
       )}

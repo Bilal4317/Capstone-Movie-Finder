@@ -3,9 +3,10 @@ import GlobalStyle from "../styles";
 import Head from "next/head";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
-import MovieDetails from "../components/Moviedetails.js";
+import MovieDetails from "../components/MovieDetails.js";
 import SearchInput from "../components/SearchInput.js";
 import SortingOptions from "../components/SortingOptions.js";
+import FavoritesList from "../components/FavoritesList.js";
 
 const Movies = [
   {
@@ -56,6 +57,7 @@ export default function App({ Component, pageProps }) {
   const [filteredMovies, setFilteredMovies] = useState(Movies);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortBy, setSortBy] = useState("title");
+  const [favorites, setFavorites] = useState([]);
 
   const handleSearch = (query) => {
     const filtered = Movies.filter((movie) =>
@@ -90,6 +92,18 @@ export default function App({ Component, pageProps }) {
     setFilteredMovies(sorted);
   };
 
+  const handleAddToFavorites = (movieId) => {
+    const movieToAdd = Movies.find((movie) => movie.id === movieId);
+    if (!favorites.some((movie) => movie.id === movieToAdd.id)) {
+      setFavorites([...favorites, movieToAdd]);
+    } else {
+      const updatedFavorites = favorites.filter(
+        (movie) => movie.id !== movieId
+      );
+      setFavorites(updatedFavorites);
+    }
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -109,6 +123,8 @@ export default function App({ Component, pageProps }) {
             description={movie.description}
             releaseYear={movie.releaseYear}
             onClick={() => handleMovieClick(movie.id)}
+            onAddToFavorites={() => handleAddToFavorites(movie.id)}
+            isFavorite={favorites.some((favMovie) => favMovie.id === movie.id)}
           />
         ))
       ) : (
@@ -118,6 +134,8 @@ export default function App({ Component, pageProps }) {
       {selectedMovie && (
         <MovieDetails movie={selectedMovie} onClose={handleCloseModal} />
       )}
+
+      <FavoritesList favorites={favorites} />
     </>
   );
 }
