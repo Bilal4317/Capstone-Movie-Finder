@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MovieDetails from "./MovieDetails.js";
+import MovieDetails from "./MovieDetail";
 
 const ListContainer = styled.div`
   margin-top: 20px;

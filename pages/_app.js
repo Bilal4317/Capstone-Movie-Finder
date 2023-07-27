@@ -3,7 +3,7 @@ import GlobalStyle from "../styles";
 import Head from "next/head";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
-import MovieDetails from "../components/MovieDetails.js";
+import MovieDetails from "../components/MovieDetail.js";
 import SearchInput from "../components/SearchInput.js";
 import SortingOptions from "../components/SortingOptions.js";
 import FavoritesList from "../components/FavoritesList.js";
