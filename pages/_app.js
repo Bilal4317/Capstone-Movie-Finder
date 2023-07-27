@@ -5,6 +5,7 @@ import Movie from "../components/Movie";
 import Heading from "../components/Heading";
 import MovieDetails from "../components/Moviedetails.js";
 import SearchInput from "../components/SearchInput.js";
+import SortingOptions from "../components/SortingOptions.js";
 
 const Movies = [
   {
@@ -43,11 +44,18 @@ const Movies = [
     description: "This is the description of spiderman 6 .",
     releaseYear: 2020,
   },
+  {
+    id: 7,
+    title: "Batman",
+    description: "This is the description of Batman.",
+    releaseYear: 2006,
+  },
 ];
 
 export default function App({ Component, pageProps }) {
   const [filteredMovies, setFilteredMovies] = useState(Movies);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [sortBy, setSortBy] = useState("title");
 
   const handleSearch = (query) => {
     const filtered = Movies.filter((movie) =>
@@ -65,6 +73,23 @@ export default function App({ Component, pageProps }) {
     setSelectedMovie(null);
   };
 
+  const handleSortChange = (sortOption) => {
+    setSortBy(sortOption);
+    sortMovies(sortOption);
+  };
+
+  const sortMovies = (sortOption) => {
+    const sorted = [...filteredMovies];
+    sorted.sort((a, b) => {
+      if (sortOption === "releaseYear") {
+        return a.releaseYear - b.releaseYear;
+      } else {
+        return a.title.localeCompare(b.title);
+      }
+    });
+    setFilteredMovies(sorted);
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -73,6 +98,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Heading />
       <SearchInput onChange={handleSearch} />
+      <SortingOptions onChange={handleSortChange} />
 
       {filteredMovies.length > 0 ? (
         filteredMovies.map((movie) => (
