@@ -1,7 +1,7 @@
 import Head from "next/head";
 import GlobalStyle from "../styles";
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, onClose }) => {
   return (
     <>
       <GlobalStyle />
@@ -13,6 +13,7 @@ const MovieDetails = ({ movie }) => {
         <p>{movie.description}</p>
         <p>Release Year: {movie.releaseYear}</p>
         <p>Movie ID : {movie.id}</p>
+        <button onClick={onClose}>Close</button>
       </div>
     </>
   );
