@@ -1,12 +1,12 @@
 import { useState } from "react";
 import GlobalStyle from "../styles";
 import Head from "next/head";
-import Movie from "../components/Movie";
+import Movie from "../components/Movie/Movie";
 import Heading from "../components/Heading";
-import MovieDetails from "../components/MovieDetail.js";
-import SearchInput from "../components/SearchInput.js";
-import SortingOptions from "../components/SortingOptions.js";
-import FavoritesList from "../components/FavoritesList.js";
+import MovieDetail from "../components/MovieDetail/MovieDetail";
+import SearchInput from "../components/SearchInput/SearchInput";
+import SortingOptions from "../components/SortingOptions/SortingOptions";
+import FavoritesList from "../components/FavoritesList/FavoritesList";
 
 const Movies = [
   {
@@ -132,7 +132,7 @@ export default function App({ Component, pageProps }) {
       )}
 
       {selectedMovie && (
-        <MovieDetails movie={selectedMovie} onClose={handleCloseModal} />
+        <MovieDetail movie={selectedMovie} onClose={handleCloseModal} />
       )}
 
       <FavoritesList favorites={favorites} />
