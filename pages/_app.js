@@ -104,6 +104,11 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const handleRemoveFromFavorites = (movieId) => {
+    const updatedFavorites = favorites.filter((movie) => movie.id !== movieId);
+    setFavorites(updatedFavorites);
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -135,7 +140,10 @@ export default function App({ Component, pageProps }) {
         <MovieDetail movie={selectedMovie} onClose={handleCloseModal} />
       )}
 
-      <FavoritesList favorites={favorites} />
+      <FavoritesList
+        favorites={favorites}
+        onRemoveFromFavorites={handleRemoveFromFavorites}
+      />
     </>
   );
 }

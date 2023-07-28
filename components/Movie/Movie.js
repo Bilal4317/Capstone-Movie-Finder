@@ -10,6 +10,7 @@ const MovieWrapper = styled.div`
 
 const MovieTitle = styled.h2`
   font-size: 24px;
+
   color: #333;
 `;
 
@@ -30,7 +31,8 @@ const Id = styled.p`
 
 const HeartIcon = styled.span`
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 15px;
+  margin right: 10px;
   font-size: 20px;
   color: ${({ isFavorite }) => (isFavorite ? "red" : "gray")};
 `;

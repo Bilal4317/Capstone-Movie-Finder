@@ -20,7 +20,14 @@ const MovieTitle = styled.h3`
   margin: 0;
 `;
 
-const FavoritesList = ({ favorites }) => {
+const HeartIcon = styled.span`
+  font-size: 24px;
+  color: ${(props) => (props.isFavorite ? "red" : "gray")};
+  margin-right: auto;
+  cursor: pointer;
+`;
+
+const FavoritesList = ({ favorites, onRemoveFromFavorites }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const handleMovieClick = (movie) => {
@@ -38,6 +45,12 @@ const FavoritesList = ({ favorites }) => {
         favorites.map((movie) => (
           <ListItem key={movie.id} onClick={() => handleMovieClick(movie)}>
             <MovieTitle>{movie.title}</MovieTitle>
+            <HeartIcon
+              isFavorite={true}
+              onClick={() => onRemoveFromFavorites(movie.id)}
+            >
+              &#x2764;
+            </HeartIcon>
           </ListItem>
         ))
       ) : (
