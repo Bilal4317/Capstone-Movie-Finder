@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const MovieWrapper = styled.div`
-  background-color: #f9f9f9;
+  background-color: #a8dadc;
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
@@ -13,23 +13,31 @@ const MovieTitle = styled.h2`
   color: #333;
 `;
 
-const MovieDescription = styled.p`
-  font-size: 16px;
-  color: #555;
+const HeartIcon = styled.span`
+  cursor: pointer;
+  margin-left: 15px;
+  margin-right: 10px;
+  font-size: 20px;
+  color: ${({ isFavorite }) => (isFavorite ? "red" : "gray")};
 `;
-
-const MovieReleaseYear = styled.p`
-  font-size: 14px;
-  color: #777;
-`;
-
-const Id = styled.p`
-  font-size: 14px;
-  color: #777;
-`;
-
-const Movie = ({ title, description, releaseYear, id }) => {
+const Movie = ({
+  title,
+  description,
+  releaseYear,
+  id,
+  onAddToFavorites,
+  isFavorite,
+  onRemoveFromFavorites,
+}) => {
   const [showDetails, setShowDetails] = useState(false);
+
+  const handleAddToFavorites = () => {
+    onAddToFavorites(id);
+  };
+
+  const handleRemoveFromFavorites = () => {
+    onRemoveFromFavorites(id);
+  };
 
   const handleMovieClick = () => {
     setShowDetails(true);
@@ -43,9 +51,14 @@ const Movie = ({ title, description, releaseYear, id }) => {
     <>
       <MovieWrapper onClick={handleMovieClick}>
         <MovieTitle>{title}</MovieTitle>
-        <MovieDescription>{description}</MovieDescription>
-        <MovieReleaseYear>Release Year: {releaseYear}</MovieReleaseYear>
-        <Id>Movie ID: {id}</Id>
+        <HeartIcon
+          isFavorite={isFavorite}
+          onClick={
+            isFavorite ? handleRemoveFromFavorites : handleAddToFavorites
+          }
+        >
+          &#10084;
+        </HeartIcon>
       </MovieWrapper>
       {showDetails && (
         <div>

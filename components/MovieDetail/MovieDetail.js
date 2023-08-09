@@ -1,5 +1,5 @@
 import Head from "next/head";
-import GlobalStyle from "../styles";
+import GlobalStyle from "../../styles";
 
 const MovieDetails = ({ movie, onClose }) => {
   return (
