@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import MovieDetails from "../MovieDetail/MovieDetail";
+import Movie from "../Movie/Movie";
 
 const ListContainer = styled.div`
   margin-top: 20px;
@@ -58,7 +57,15 @@ const FavoritesList = ({ favorites, onRemoveFromFavorites }) => {
       )}
 
       {selectedMovie && (
-        <MovieDetails movie={selectedMovie} onClose={handleCloseModal} />
+        <Movie
+          title={selectedMovie.title}
+          description={selectedMovie.description}
+          releaseYear={selectedMovie.releaseYear}
+          id={selectedMovie.id}
+          onAddToFavorites={() => {}}
+          isFavorite={true}
+          onRemoveFromFavorites={onRemoveFromFavorites}
+        />
       )}
     </ListContainer>
   );

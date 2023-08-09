@@ -9,5 +9,6 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
+    background: linear-gradient(to right, #6A82FB, #FC5C7D);
   }
 `;
