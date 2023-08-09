@@ -202,7 +202,7 @@ export default function App({ Component, pageProps }) {
           favorites: savedFavorites,
         }));
       } else {
-        alert("Incorrect password");
+        alert("Incorrect Password");
       }
     } else {
       alert("User not found");
