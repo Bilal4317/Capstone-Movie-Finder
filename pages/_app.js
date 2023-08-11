@@ -53,6 +53,9 @@ const FavoritesContainer = styled.div`
 const AppWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (min-width: 375px) {
+    padding: 20px;
+  }
 `;
 
 const LoginWrapper = styled.div`
@@ -80,7 +83,6 @@ export default function App({ Component, pageProps }) {
   const [currentUser, setCurrentUser] = useState(initialUser);
   const [currentPage, setCurrentPage] = useState(1);
   const moviesPerPage = 10;
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const savedUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -194,41 +196,53 @@ export default function App({ Component, pageProps }) {
 
     if (existingUser) {
       if (existingUser.password === password) {
-        // Set the existing user as the 'currentUser' state
         setCurrentUser(existingUser);
 
-        // Retrieve the favorites from local storage
         const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
 
-        // Set the favorites for the current user
         setCurrentUser((prevUser) => ({
           ...prevUser,
           favorites: savedFavorites,
         }));
       } else {
-        alert("Incorrect password");
+        alert("Incorrect Password");
       }
     } else {
       alert("User not found");
     }
   };
-
   const handleRegister = (username, password) => {
-    const newUser = {
-      username,
-      password,
-      favorites: [],
-    };
+    try {
+      if (!username || !password) {
+        throw new Error("Username and password are required.");
+      }
 
-    setUsers((prevUsers) => {
-      const updatedUsers = [...prevUsers, newUser];
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
-      return updatedUsers;
-    });
+      const isUsernameTaken = users.some((user) => user.username === username);
+      if (isUsernameTaken) {
+        throw new Error("Username is already taken.");
+      }
 
-    setCurrentUser(newUser);
-    localStorage.setItem("currentUser", JSON.stringify(newUser));
-    localStorage.setItem("favorites", JSON.stringify(newUser.favorites));
+      const newUser = {
+        username,
+        password,
+        favorites: [],
+      };
+
+      setUsers((prevUsers) => {
+        const updatedUsers = [...prevUsers, newUser];
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        return updatedUsers;
+      });
+
+      setCurrentUser(newUser);
+      localStorage.setItem("currentUser", JSON.stringify(newUser));
+      localStorage.setItem("favorites", JSON.stringify(newUser.favorites));
+
+      alert("Registration successful!");
+    } catch (error) {
+      alert("Registration failed: " + error.message);
+      console.error("Registration error:", error);
+    }
   };
 
   const handleLogout = () => {
