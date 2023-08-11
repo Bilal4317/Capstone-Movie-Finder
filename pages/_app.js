@@ -53,6 +53,9 @@ const FavoritesContainer = styled.div`
 const AppWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (min-width: 375px) {
+    padding: 20px;
+  }
 `;
 
 const LoginWrapper = styled.div`
